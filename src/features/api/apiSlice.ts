@@ -29,7 +29,7 @@ export const todoApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
-        url: "login/",
+        url: "api/login/",
         method: "POST",
         body: credentials,
       }),
