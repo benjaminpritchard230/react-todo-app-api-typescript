@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
+import AddTaskDialog from "./components/AddTaskDialog";
+import FloatingActionButtons from "./components/FloatingActionButtons";
 import TaskCard from "./components/TaskCard";
 import TasksPage from "./components/TasksPage";
 import TodoAppBar from "./components/TodoAppBar";
@@ -33,14 +35,8 @@ function App() {
     },
   });
 
-  const { data: tasksData, error, isError, isLoading } = useGetTasksQuery();
-  console.log(tasksData, "publicposts");
+  const [toggleTaskDialog, setToggleTaskDialog] = useState(false);
 
-  const displayTaskCards = () => {
-    if (tasksData) {
-      return tasksData.map((task) => <TaskCard task={task} />);
-    }
-  };
   return (
     <ThemeProvider theme={lightTheme}>
       <CssBaseline />
@@ -56,6 +52,14 @@ function App() {
             </Routes>
           </Grid>
         </Box>
+        <AddTaskDialog
+          toggleTaskDialog={toggleTaskDialog}
+          setToggleTaskDialog={setToggleTaskDialog}
+        />
+        <FloatingActionButtons
+          toggleTaskDialog={toggleTaskDialog}
+          setToggleTaskDialog={setToggleTaskDialog}
+        />
       </Router>
     </ThemeProvider>
   );

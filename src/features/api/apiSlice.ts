@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { useAppSelector } from "../../app/hooks";
 import type { RootState } from "../../app/store";
 
-interface Task {
+export interface Task {
   id: number;
   name: string;
   created_on: string;
@@ -40,7 +40,16 @@ export const todoApi = createApi({
       }),
       // invalidatesTags: ["Posts", "User", "Notifications"],
     }),
+    createTask: build.mutation({
+      query: (data) => ({
+        url: "api/tasks/",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Tasks"],
+    }),
   }),
 });
 
-export const { useGetTasksQuery, useLoginMutation } = todoApi;
+export const { useGetTasksQuery, useLoginMutation, useCreateTaskMutation } =
+  todoApi;

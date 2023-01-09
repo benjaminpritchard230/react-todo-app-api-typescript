@@ -6,14 +6,7 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { useAppSelector } from "../app/hooks";
-
-interface Task {
-  id: number;
-  name: string;
-  created_on: string;
-  user: number;
-  done: boolean;
-}
+import { Task } from "../features/api/apiSlice";
 
 interface Props {
   task: Task;
