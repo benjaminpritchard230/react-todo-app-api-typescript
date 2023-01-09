@@ -2,16 +2,13 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { useAppSelector } from "../../app/hooks";
 import type { RootState } from "../../app/store";
 
-type prepareHeaders = (
-  headers: Headers,
-  api: {
-    getState: () => unknown;
-    extra: unknown;
-    endpoint: string;
-    type: "query" | "mutation";
-    forced: boolean | undefined;
-  }
-) => Headers | void;
+interface Task {
+  id: number;
+  name: string;
+  created_on: string;
+  user: number;
+  done: boolean;
+}
 
 export const todoApi = createApi({
   reducerPath: "todoApi",
@@ -26,8 +23,13 @@ export const todoApi = createApi({
       return headers;
     },
   }),
-  endpoints: (builder) => ({
-    login: builder.mutation({
+  tagTypes: ["Tasks"],
+  endpoints: (build) => ({
+    getTasks: build.query<Task[], void>({
+      query: () => "api/tasks/",
+      providesTags: ["Tasks"],
+    }),
+    login: build.mutation({
       query: (credentials) => ({
         url: "api/login/",
         method: "POST",
@@ -38,4 +40,4 @@ export const todoApi = createApi({
   }),
 });
 
-export const { useLoginMutation } = todoApi;
+export const { useGetTasksQuery, useLoginMutation } = todoApi;

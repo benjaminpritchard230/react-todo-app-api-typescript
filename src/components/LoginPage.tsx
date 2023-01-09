@@ -9,7 +9,12 @@ import CssBaseline from "@mui/material/CssBaseline";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {
+  createTheme,
+  SxProps,
+  Theme,
+  ThemeProvider,
+} from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
@@ -22,8 +27,8 @@ import { useAppDispatch, useAppSelector } from "../../src/app/hooks";
 import { useLoginMutation } from "../features/api/apiSlice";
 import { setCredentials } from "../features/auth/authSlice";
 
-interface Props {
-  props: any;
+interface CopyrightProps {
+  sx?: SxProps<Theme>;
 }
 
 interface Target {
@@ -33,9 +38,14 @@ interface Target {
   };
 }
 
-function Copyright({ props }: Props) {
+function Copyright(props: CopyrightProps) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center">
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         Your Website
@@ -152,7 +162,7 @@ export default function Login() {
             </Grid>
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
+        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );
