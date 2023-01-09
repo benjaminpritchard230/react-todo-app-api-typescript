@@ -10,11 +10,15 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import TaskCard from "./components/TaskCard";
 import TasksPage from "./components/TasksPage";
+import TodoAppBar from "./components/TodoAppBar";
 import { useGetTasksQuery } from "./features/api/apiSlice";
+
 function App() {
+  const uuid = uuidv4();
   const darkTheme = createTheme({
     palette: {
       mode: "dark",
@@ -28,6 +32,7 @@ function App() {
       },
     },
   });
+
   const { data: tasksData, error, isError, isLoading } = useGetTasksQuery();
   console.log(tasksData, "publicposts");
 
@@ -40,11 +45,12 @@ function App() {
     <ThemeProvider theme={lightTheme}>
       <CssBaseline />
       <Router>
+        <TodoAppBar />
         <Box sx={{ flexGrow: 1, minWidth: 1 }} key="1">
           <Grid container spacing={0}>
             <Grid item xs={12}></Grid>
             <Routes>
-              <Route path={"/"} element={<TasksPage />} />
+              <Route path={"/"} element={<TasksPage key={uuid} />} />
 
               <Route path={"/login"} element={<LoginPage />} />
             </Routes>

@@ -27,6 +27,9 @@ export const todoApi = createApi({
   endpoints: (build) => ({
     getTasks: build.query<Task[], void>({
       query: () => "api/tasks/",
+      extraOptions: {
+        refetchOnMountOrArgChange: true,
+      },
       providesTags: ["Tasks"],
     }),
     login: build.mutation({
