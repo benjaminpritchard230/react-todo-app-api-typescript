@@ -7,6 +7,7 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { useAppSelector } from "../app/hooks";
 import { Task } from "../features/api/apiSlice";
+import TaskCardButtons from "./TaskCardButtons";
 
 interface Props {
   task: Task;
@@ -34,9 +35,14 @@ const TaskCard = ({ task }: Props) => {
             <Typography gutterBottom variant="h5" component="div">
               {capitalizeString(task.name)}
             </Typography>
+            <Typography gutterBottom variant="h5" component="div">
+              {task.done ? "done" : "not done"}
+            </Typography>
             <Typography variant="body2" color="text.secondary"></Typography>
           </CardContent>
-          <CardActions></CardActions>
+          <CardActions>
+            <TaskCardButtons key={task.id} task={task} />
+          </CardActions>
         </Card>
       </Item>
     </Grid>

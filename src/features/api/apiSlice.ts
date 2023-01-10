@@ -48,8 +48,28 @@ export const todoApi = createApi({
       }),
       invalidatesTags: ["Tasks"],
     }),
+    taskDone: build.mutation({
+      query: (data) => ({
+        url: `api/tasks/${data.id}/`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Tasks"],
+    }),
+    taskDelete: build.mutation({
+      query: (data) => ({
+        url: `api/tasks/${data.id}/`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Tasks"],
+    }),
   }),
 });
 
-export const { useGetTasksQuery, useLoginMutation, useCreateTaskMutation } =
-  todoApi;
+export const {
+  useGetTasksQuery,
+  useLoginMutation,
+  useCreateTaskMutation,
+  useTaskDoneMutation,
+  useTaskDeleteMutation,
+} = todoApi;
