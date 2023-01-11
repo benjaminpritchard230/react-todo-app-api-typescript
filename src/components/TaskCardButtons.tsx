@@ -9,14 +9,20 @@ import * as React from "react";
 import {
   Task,
   useTaskDeleteMutation,
-  useTaskDoneMutation,
+  useTaskEditMutation,
 } from "../features/api/apiSlice";
 interface Props {
   task: Task;
+  toggleEditDialog: boolean;
+  setToggleEditDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const TaskCardButtons = ({ task }: Props) => {
-  const [taskDone] = useTaskDoneMutation();
+const TaskCardButtons = ({
+  task,
+  toggleEditDialog,
+  setToggleEditDialog,
+}: Props) => {
+  const [taskEdit] = useTaskEditMutation();
   const [taskDelete] = useTaskDeleteMutation();
 
   const handleDone = async () => {
@@ -28,13 +34,13 @@ const TaskCardButtons = ({ task }: Props) => {
       done: !task.done,
     };
     try {
-      await taskDone(data).unwrap();
+      await taskEdit(data).unwrap();
     } catch (error) {
       console.log(error);
     }
   };
   const handleEdit = () => {
-    //TODO: Create edit dialog
+    setToggleEditDialog(!toggleEditDialog);
   };
   const handleDelete = async () => {
     try {
@@ -64,7 +70,7 @@ const TaskCardButtons = ({ task }: Props) => {
       <Tooltip title="Edit title" placement="top">
         <IconButton
           onClick={() => {
-            //   setEditDialog(true);
+            handleEdit();
           }}
         >
           <Avatar>

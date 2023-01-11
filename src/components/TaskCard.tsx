@@ -5,8 +5,10 @@ import CardContent from "@mui/material/CardContent";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import { useState } from "react";
 import { useAppSelector } from "../app/hooks";
 import { Task } from "../features/api/apiSlice";
+import EditDialog from "./EditDialog";
 import TaskCardButtons from "./TaskCardButtons";
 
 interface Props {
@@ -21,6 +23,9 @@ const TaskCard = ({ task }: Props) => {
     textAlign: "center",
     color: theme.palette.text.secondary,
   }));
+
+  const [toggleEditDialog, setToggleEditDialog] = useState(false);
+
   const token = useAppSelector((state) => state.auth.token);
 
   const capitalizeString = (str: string) => {
@@ -41,10 +46,20 @@ const TaskCard = ({ task }: Props) => {
             <Typography variant="body2" color="text.secondary"></Typography>
           </CardContent>
           <CardActions>
-            <TaskCardButtons key={task.id} task={task} />
+            <TaskCardButtons
+              key={task.id}
+              task={task}
+              toggleEditDialog={toggleEditDialog}
+              setToggleEditDialog={setToggleEditDialog}
+            />
           </CardActions>
         </Card>
       </Item>
+      <EditDialog
+        task={task}
+        toggleEditDialog={toggleEditDialog}
+        setToggleEditDialog={setToggleEditDialog}
+      />
     </Grid>
   );
 };

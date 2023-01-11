@@ -48,7 +48,7 @@ export const todoApi = createApi({
       }),
       invalidatesTags: ["Tasks"],
     }),
-    taskDone: build.mutation({
+    taskEdit: build.mutation({
       query: (data) => ({
         url: `api/tasks/${data.id}/`,
         method: "PUT",
@@ -56,6 +56,7 @@ export const todoApi = createApi({
       }),
       invalidatesTags: ["Tasks"],
     }),
+
     taskDelete: build.mutation({
       query: (data) => ({
         url: `api/tasks/${data.id}/`,
@@ -70,6 +71,6 @@ export const {
   useGetTasksQuery,
   useLoginMutation,
   useCreateTaskMutation,
-  useTaskDoneMutation,
+  useTaskEditMutation,
   useTaskDeleteMutation,
 } = todoApi;
